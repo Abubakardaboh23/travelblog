@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wanderlust | Travel Blog</title>
+
+<style>
+/* =========================
+   RESET & GLOBAL STYLES
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary: #ff6b35;
+    --secondary: #004e64;
+    --accent: #00a896;
+    --light: #f7f9fc;
+    --dark: #17202a;
+    --text: #333;
+    --white: #fff;
+    --shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+    transition: 0.3s;
+}
+
+body.dark {
+    --light: #101820;
+    --dark: #ffffff;
+    --text: #eeeeee;
+    --white: #18232c;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+
+.dark header {
+    background: rgba(16,24,32,0.95);
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.logo span {
+    color: var(--secondary);
+}
+
+.dark .logo span {
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    border: none;
+    background: var(--primary);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.menu-btn {
+    display: none;
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text);
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+    height: 100vh;
+    min-height: 650px;
+    background:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=80")
+        center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.hero-content {
+    max-width: 800px;
+    animation: fadeUp 1s ease;
+}
+
+.hero h1 {
+    font-size: clamp(45px, 8vw, 85px);
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 21px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 30px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    background: #e95420;
+}
+
+/* =========================
+   GENERAL SECTION
+========================= */
+section {
+    padding: 90px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-size: 40px;
+    color: var(--dark);
+}
+
+.section-title p {
+    color: #777;
+    margin-top: 10px;
+}
+
+/* =========================
+   SEARCH
+========================= */
+.search-box {
+    max-width: 700px;
+    margin: 0 auto 45px;
+    display: flex;
+    background: var(--white);
+    border-radius: 50px;
+    padding: 7px;
+    box-shadow: var(--shadow);
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 14px 20px;
+    background: transparent;
+    color: var(--text);
+    font-size: 16px;
+}
+
+.search-box button {
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 50px;
+    padding: 0 25px;
+    cursor: pointer;
+}
+
+/* =========================
+   DESTINATIONS
+========================= */
+.destination-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.card {
+    background: var(--white);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card-img {
+    height: 240px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.card:hover img {
+    transform: scale(1.08);
+}
+
+.favorite {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.favorite.active {
+    color: red;
+}
+
+.card-content {
+    padding: 22px;
+}
+
+.card-content h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: var(--dark);
+}
+
+.location {
+    color: var(--primary);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    color: #777;
+}
+
+/* =========================
+   BLOG
+========================= */
+.blog {
+    background: var(--white);
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.blog-card {
+    background: var(--light);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.blog-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.blog-content {
+    padding: 22px;
+}
+
+.blog-content small {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.blog-content h3 {
+    margin: 10px 0;
+    font-size: 22px;
+    color: var(--dark);
+}
+
+.read-more {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* =========================
+   ABOUT
+========================= */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-img img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.about-content h2 {
+    font-size: 40px;
+    color: var(--dark);
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    margin-bottom: 20px;
+    color: #777;
+}
+
+/* =========================
+   NEWSLETTER
+========================= */
+.newsletter {
+    background:
+        linear-gradient(rgba(0,78,100,0.9), rgba(0,78,100,0.9)),
+        url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
+    color: white;
+    text-align: center;
+}
+
+.newsletter h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.newsletter p {
+    margin-bottom: 25px;
+}
+
+.newsletter-form {
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background: #101820;
+    color: white;
+    padding: 50px 20px 20px;
+}
+
+.footer-grid {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+}
+
+footer h3 {
+    margin-bottom: 15px;
+}
+
+footer p,
+footer li {
+    color: #bbb;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer li {
+    margin-bottom: 8px;
+}
+
+footer a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--primary);
+}
+
+.copyright {
+    max-width: 1200px;
+    margin: 35px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    text-align: center;
+    color: #888;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width: 850px) {
+
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        flex-direction: column;
+        padding: 25px;
+        text-align: center;
+        display: none;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-buttons {
+        margin-left: auto;
+        margin-right: 10px;
+    }
+
+    .destination-grid,
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width: 600px) {
+
+    .hero {
+        min-height: 600px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    section {
+        padding: 65px 15px;
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+    }
+
+    .destination-grid,
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box {
+        flex-direction: column;
+        border-radius: 15px;
+        gap: 5px;
+    }
+
+    .search-box button {
+        padding: 13px;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-form button {
+        width: 100%;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+<header>
+    <nav class="navbar">
+
+        <div class="logo">
+            Wander<span>lust</span>
+        </div>
+
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+            <button class="icon-btn" onclick="toggleDarkMode()" title="Dark Mode">
+                🌙
+            </button>
+        </div>
+
+    </nav>
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>Explore The World</h1>
+
+        <p>
+            Discover breathtaking destinations, unforgettable adventures,
+            travel tips and stories from around the globe.
+        </p>
+
+        <a href="#destinations" class="btn btn-primary">
+            Start Exploring
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DESTINATIONS
+========================= -->
+<section id="destinations">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Popular Destinations</h2>
+
+            <p>
+                Places that deserve a spot on your travel bucket list.
+            </p>
+
+        </div>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search destinations..."
+                onkeyup="searchDestinations()"
+            >
+
+            <button onclick="searchDestinations()">
+                Search
+            </button>
+
+        </div>
+
+
+        <div class="destination-grid" id="destinationGrid">
+
+            <!-- CARD 1 -->
+            <div class="card destination-card">
+
+                <div class="card-img">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=900&q=80"
+                        alt="Santorini"
+                    >
+
+                    <button class="favorite"
+                            onclick="favorite(this)">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="card-content">
+
+                    <div class="location">
+                        🇬🇷 Greece
+                    </div>
+
+                    <h3>Santorini</h3>
+
+                    <p>
+                        Experience whitewashed buildings, blue domes,
+                        beautiful sunsets and the Mediterranean Sea.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 2 -->
+            <div class="card destination-card">
+
+                <div class="card-img">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=900&q=80"
+                        alt="Japan"
+                    >
+
+                    <button class="favorite"
+                            onclick="favorite(this)">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="card-content">
+
+                    <div class="location">
+                        🇯🇵 Japan
+                    </div>
+
+                    <h3>Kyoto</h3>
+
+                    <p>
+                        Explore ancient temples, peaceful gardens,
+                        traditional streets and Japanese culture.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 3 -->
+            <div class="card destination-card">
+
+                <div class="card-img">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=900&q=80"
+                        alt="Bali"
+                    >
+
+                    <button class="favorite"
+                            onclick="favorite(this)">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="card-content">
+
+                    <div class="location">
+                        🇮🇩 Indonesia
+                    </div>
+
+                    <h3>Bali</h3>
+
+                    <p>
+                        Relax on tropical beaches, visit waterfalls
+                        and discover the island's unique culture.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 4 -->
+            <div class="card destination-card">
+
+                <div class="card-img">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=900&q=80"
+                        alt="Africa"
+                    >
+
+                    <button class="favorite"
+                            onclick="favorite(this)">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="card-content">
+
+                    <div class="location">
+                        🌍 Africa
+                    </div>
+
+                    <h3>Safari Adventure</h3>
+
+                    <p>
+                        Get close to nature and experience incredible
+                        wildlife across Africa.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 5 -->
+            <div class="card destination-card">
+
+                <div class="card-img">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?auto=format&fit=crop&w=900&q=80"
+                        alt="Maldives"
+                    >
+
+                    <button class="favorite"
+                            onclick="favorite(this)">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="card-content">
+
+                    <div class="location">
+                        🇲🇻 Maldives
+                    </div>
+
+                    <h3>Maldives</h3>
+
+                    <p>
+                        Discover crystal-clear water, coral reefs
+                        and peaceful tropical islands.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 6 -->
+            <div class="card destination-card">
+
+                <div class="card-img">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80"
+                        alt="Paris"
+                    >
+
+                    <button class="favorite"
+                            onclick="favorite(this)">
+                        ♡
+                    </button>
+
+                </div>
+
+                <div class="card-content">
+
+                    <div class="location">
+                        🇫🇷 France
+                    </div>
+
+                    <h3>Paris</h3>
+
+                    <p>
+                        Enjoy art, architecture, delicious food and
+                        unforgettable moments in the city of lights.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BLOG
+========================= -->
+<section class="blog" id="blog">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Latest Travel Stories</h2>
+
+            <p>
+                Travel inspiration, tips and adventures.
+            </p>
+
+        </div>
+
+
+        <div class="blog-grid">
+
+            <article class="blog-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=900&q=80"
+                    alt="Travel planning"
+                >
+
+                <div class="blog-content">
+
+                    <small>TRAVEL TIPS</small>
+
+                    <h3>
+                        How to Plan Your Perfect Vacation
+                    </h3>
+
+                    <p>
+                        Learn how to plan your trip, choose your
+                        destination and make the most of your budget.
+                    </p>
+
+                    <br>
+
+                    <a href="#" class="read-more">
+                        Read More →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="blog-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80"
+                    alt="Backpacking"
+                >
+
+                <div class="blog-content">
+
+                    <small>ADVENTURE</small>
+
+                    <h3>
+                        The Ultimate Backpacking Guide
+                    </h3>
+
+                    <p>
+                        Everything you need to know before starting
+                        your next backpacking adventure.
+                    </p>
+
+                    <br>
+
+                    <a href="#" class="read-more">
+                        Read More →
+                    </a>
+
+                </div>
+
+            </article>
+
+
+            <article class="blog-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1521292270410-a8c4d716d518?auto=format&fit=crop&w=900&q=80"
+                    alt="Beach travel"
+                >
+
+                <div class="blog-content">
+
+                    <small>DESTINATIONS</small>
+
+                    <h3>
+                        10 Beautiful Beaches to Visit
+                    </h3>
+
+                    <p>
+                        Discover spectacular beaches and relaxing
+                        coastal destinations around the world.
+                    </p>
+
+                    <br>
+
+                    <a href="#" class="read-more">
+                        Read More →
+                    </a>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+<section id="about">
+
+    <div class="container">
+
+        <div class="about-grid">
+
+            <div class="about-img">
+
+                <img
+                    src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=80"
+                    alt="Traveler"
+                >
+
+            </div>
+
+            <div class="about-content">
+
+                <h2>Travel. Explore. Live.</h2>
+
+                <p>
+                    Wanderlust is a travel blog created for people who
+                    love discovering new places, meeting new people and
+                    creating unforgettable memories.
+                </p>
+
+                <p>
+                    From hidden destinations to popular tourist
+                    attractions, we share travel stories, guides,
+                    photography and useful travel tips.
+                </p>
+
+                <a href="#blog" class="btn btn-primary">
+                    Explore Our Stories
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     NEWSLETTER
+========================= -->
+<section class="newsletter" id="contact">
+
+    <div class="container">
+
+        <h2>Join Our Travel Community</h2>
+
+        <p>
+            Get new travel stories, destinations and tips directly
+            in your inbox.
+        </p>
+
+        <form class="newsletter-form"
+              onsubmit="subscribe(event)">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email address"
+                required
+            >
+
+            <button class="btn btn-primary">
+                Subscribe
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>🌍 Wanderlust</h3>
+
+            <p>
+                Inspiring people to explore the world,
+                one destination at a time.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Quick Links</h3>
+
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h3>Follow Us</h3>
+
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">YouTube</a></li>
+                <li><a href="#">TikTok</a></li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © <span id="year"></span> Wanderlust Travel Blog.
+        All Rights Reserved.
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMenu() {
+
+    const menu = document.getElementById("navLinks");
+
+    menu.classList.toggle("show");
+
+}
+
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark");
+
+    const isDark =
+        document.body.classList.contains("dark");
+
+    localStorage.setItem("darkMode", isDark);
+
+}
+
+
+/* Load saved theme */
+
+if (localStorage.getItem("darkMode") === "true") {
+
+    document.body.classList.add("dark");
+
+}
+
+
+/* =========================
+   FAVORITE BUTTON
+========================= */
+
+function favorite(button) {
+
+    button.classList.toggle("active");
+
+    if (button.classList.contains("active")) {
+
+        button.innerHTML = "♥";
+
+    } else {
+
+        button.innerHTML = "♡";
+
+    }
+
+}
+
+
+/* =========================
+   DESTINATION SEARCH
+========================= */
+
+function searchDestinations() {
+
+    const input =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".destination-card");
+
+    cards.forEach(card => {
+
+        const text =
+            card.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   NEWSLETTER
+========================= */
+
+function subscribe(event) {
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById("email").value;
+
+    alert(
+        "Thank you for subscribing! 🌍\n\n" +
+        "Updates will be sent to: " + email
+    );
+
+    document.getElementById("email").value = "";
+
+}
+
+
+/* =========================
+   CURRENT YEAR
+========================= */
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+
+/* =========================
+   CLOSE MOBILE MENU
+========================= */
+
+document.querySelectorAll(".nav-links a")
+.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        document
+            .getElementById("navLinks")
+            .classList.remove("show");
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
